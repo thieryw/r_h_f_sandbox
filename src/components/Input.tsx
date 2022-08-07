@@ -28,13 +28,6 @@ export const Input = memo((props: InputProps) => {
                             {...input}
                             {...rest}
                         />
-                        default: return <input
-                            aria-label={input.ariaLabel}
-                            type={input.type}
-                            {...rest.register(input.name)}
-                        />
-
-
                     }
                 })()
 

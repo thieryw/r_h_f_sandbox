@@ -35,7 +35,6 @@ export const TextInput = memo((props: TextInputProps) => {
             {required !== undefined && "*"} {name}
         </h4>
 
-
         <input
             className={classes.input}
             type="text"
@@ -47,6 +46,7 @@ export const TextInput = memo((props: TextInputProps) => {
                 pattern
             })}
         />
+
         <Error 
             possibleErrors={[
                 {
@@ -69,37 +69,6 @@ export const TextInput = memo((props: TextInputProps) => {
             errors={errors}
             inputId={id}
         />
-        {/*
-            [
-                {
-                    "errorType": "required",
-                    "errorMessage": requiredErrorMessage ?? "Field is required !"
-                },
-                {
-                    "errorType": "maxLength",
-                    "errorMessage": maxLengthErrorMessage ?? "Input exceeds max length !"
-                },
-                {
-                    "errorType": "minLength",
-                    "errorMessage": minLengthErrorMessage ?? "Input does not meet min length !"
-                },
-                {
-                    "errorType": "pattern",
-                    "errorMessage": patternErrorMessage ?? "Input does not match required pattern !"
-                }
-            ].map(({ errorMessage, errorType }) => {
-
-                const error = getError(id, errors);
-
-                if (error === undefined) {
-                    return null;
-                }
-
-                return (
-                    error.type === errorType && <p className={classes.errorMsg} key={errorMessage}>{errorMessage}</p>
-                )
-            })
-        */}
     </div>
 
 })

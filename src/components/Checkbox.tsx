@@ -1,12 +1,11 @@
 import { memo, useState } from "react";
-import { Checkbox as CheckboxType } from "../tools/FormTypes"
+import type { Checkbox as CheckboxType } from "../tools/FormTypes"
 import { Input } from "./Input";
 import { useConstCallback } from "powerhooks/useConstCallback";
 import { makeStyles } from "../theme";
 
 
 export type CheckboxProps = CheckboxType;
-
 
 export const Checkbox = memo((props: CheckboxProps) => {
     const { 
@@ -16,18 +15,29 @@ export const Checkbox = memo((props: CheckboxProps) => {
         dependentInputs, 
         isChecked, 
         control,
-        id
+        id,
+        unregister
     } = props;
-    const [areDependentInputsDisplayed, setAreDependentInputsDisplayed] = useState(isChecked);
+    const [
+        areDependentInputsDisplayed, 
+        setAreDependentInputsDisplayed
+    ] = useState(isChecked);
 
     const onClick = useConstCallback(() => {
+        if (dependentInputs === undefined) {
+            return;
+        }
         setAreDependentInputsDisplayed(!areDependentInputsDisplayed);
+        if (!areDependentInputsDisplayed) {
+            return;
+        }
+        unregister(id)
+
     })
 
     const { classes } = useStyles();
 
     return <div
-
         className={classes.root}
     >
         <div className={classes.primaryInputWrapper}>
@@ -37,7 +47,10 @@ export const Checkbox = memo((props: CheckboxProps) => {
                 onClick={onClick}
                 aria-label={ariaLabel}
                 checked={isChecked}
-                {...register(dependentInputs === undefined ? id : `${id}.value`)}
+                {...register(
+                    dependentInputs === undefined ||
+                        !areDependentInputsDisplayed ? id : `${id}.value`
+                )}
             />
 
         </div>
@@ -51,6 +64,7 @@ export const Checkbox = memo((props: CheckboxProps) => {
                     "id": `${id}.${input.id}`
                 }}
                 register={register}
+                unregister={unregister}
                 control={control}
             />)
         }
@@ -67,6 +81,5 @@ const useStyles = makeStyles()({
     },
     "primaryInputWrapper": {
         "display": "flex"
-
     }
 })

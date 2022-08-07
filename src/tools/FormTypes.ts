@@ -1,10 +1,9 @@
-import type { Control, FieldValues, NonUndefined, UseFormRegister } from "react-hook-form";
-
-export type InputType = NonUndefined<React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>["type"]>;
+import type { Control, FieldValues, UseFormRegister, UseFormUnregister } from "react-hook-form";
 
 export type Controls = {
     register: UseFormRegister<FieldValues>;
     control: Control<FieldValues, any>;
+    unregister: UseFormUnregister<FieldValues>;
 };
 
 export type Input = Input.Text | Input.Checkbox;
@@ -18,7 +17,7 @@ export type Form = {
 };
 declare namespace Input {
     export type Common = {
-        type: InputType;
+        type: "text" | "checkbox";
         name: string;
         id: string;
         ariaLabel: string;
@@ -41,7 +40,8 @@ declare namespace Input {
         isChecked?: boolean;
         dependentInputs?: Input[];
     };
-
 };
+
+
 
 

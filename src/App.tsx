@@ -66,7 +66,8 @@ export function App() {
                                 "name": "text2",
                                 "ariaLabel": "text2",
                                 "id": "pipi",
-                                "minLength": 3
+                                "minLength": 3,
+                                "required": true
                             }
                         ]
                     }

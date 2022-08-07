@@ -32,7 +32,8 @@ export const Error = memo((props: ErrorProps) => {
 
 const useStyles = makeStyles()({
     "root": {
-        "border": "solid red 1px"
+        "border": "solid red 1px",
+        "maxWidth": 200
 
     },
     "description": {
