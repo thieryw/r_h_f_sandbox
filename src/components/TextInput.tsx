@@ -2,6 +2,7 @@ import { memo } from "react";
 import type { Text } from "../tools/FormTypes";
 import { makeStyles } from "../theme";
 import { useFormState } from "react-hook-form";
+import { getError } from "../tools/getError";
 
 
 type TextInputProps = Text;
@@ -65,22 +66,15 @@ export const TextInput = memo((props: TextInputProps) => {
                     "errorMessage": patternErrorMessage ?? "Input does not match required pattern !"
                 }
             ].map(({ errorMessage, errorType }) => {
-                const error = (()=>{
-                    if(!id.includes(".")){
-                        return errors[id];
-                    }
 
-                    const [ a, b] = id.split(".");
-                    const err =  errors[a];
+                const error = getError(id, errors);
 
-                    if(err === undefined){
-                        return err;
-                    }
-                    return err[b];
+                if (error === undefined) {
+                    return null;
+                }
 
-                })()
                 return (
-                    error && error?.type as any === errorType && <p className={classes.errorMsg} key={errorMessage}>{errorMessage}</p>
+                    error.type === errorType && <p className={classes.errorMsg} key={errorMessage}>{errorMessage}</p>
                 )
             })
         }

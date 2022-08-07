@@ -1,5 +1,5 @@
 import { Form } from "./components/Form";
-import { useConstCallback } from "powerhooks";
+import { useConstCallback } from "powerhooks/useConstCallback";
 
 
 export function App() {
@@ -54,6 +54,21 @@ export function App() {
                         "id": "animal",
                         "name": "animal préféré",
                         "ariaLabel": "animal préféré",
+                    },
+                    {
+                        "type": "checkbox",
+                        "ariaLabel": "other checkbox",
+                        "name": "other checkbox",
+                        "id": "otherCheckbox",
+                        "dependentInputs": [
+                            {
+                                "type": "text",
+                                "name": "text2",
+                                "ariaLabel": "text2",
+                                "id": "pipi",
+                                "minLength": 3
+                            }
+                        ]
                     }
                 ]
             }
