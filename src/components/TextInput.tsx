@@ -2,7 +2,7 @@ import { memo } from "react";
 import type { Text } from "../tools/FormTypes";
 import { makeStyles } from "../theme";
 import { useFormState } from "react-hook-form";
-import { getError } from "../tools/getError";
+import { Error } from "./Error";
 
 
 type TextInputProps = Text;
@@ -47,7 +47,29 @@ export const TextInput = memo((props: TextInputProps) => {
                 pattern
             })}
         />
-        {
+        <Error 
+            possibleErrors={[
+                {
+                    "type": "required",
+                    "message": requiredErrorMessage ?? "Field is required !"
+                },
+                {
+                    "type": "maxLength",
+                    "message": maxLengthErrorMessage ?? "Input exceeds max length !"
+                },
+                {
+                    "type": "minLength",
+                    "message": minLengthErrorMessage ?? "Input does not meet min length !"
+                },
+                {
+                    "type": "pattern",
+                    "message": patternErrorMessage ?? "Input does not match required pattern !"
+                }
+            ]}
+            errors={errors}
+            inputId={id}
+        />
+        {/*
             [
                 {
                     "errorType": "required",
@@ -77,7 +99,7 @@ export const TextInput = memo((props: TextInputProps) => {
                     error.type === errorType && <p className={classes.errorMsg} key={errorMessage}>{errorMessage}</p>
                 )
             })
-        }
+        */}
     </div>
 
 })
