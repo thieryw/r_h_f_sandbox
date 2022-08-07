@@ -5,12 +5,19 @@ import { useConstCallback } from "powerhooks/useConstCallback";
 import { makeStyles } from "../theme";
 
 
-
 export type CheckboxProps = CheckboxType;
 
 
 export const Checkbox = memo((props: CheckboxProps) => {
-    const { ariaLabel, name, register, dependentInputs, isChecked, control } = props;
+    const { 
+        ariaLabel, 
+        name, 
+        register, 
+        dependentInputs, 
+        isChecked, 
+        control,
+        id
+    } = props;
     const [areDependentInputsDisplayed, setAreDependentInputsDisplayed] = useState(isChecked);
 
     const onClick = useConstCallback(() => {
@@ -30,19 +37,24 @@ export const Checkbox = memo((props: CheckboxProps) => {
                 onClick={onClick}
                 aria-label={ariaLabel}
                 checked={isChecked}
-                {...register(name)}
+                {...register(dependentInputs === undefined ? id : `${id}.value`)}
             />
 
         </div>
+
         {
             dependentInputs !== undefined && areDependentInputsDisplayed &&
             dependentInputs.map(input => <Input
                 key={input.name}
-                input={input}
+                input={{
+                    ...input,
+                    "id": `${id}.${input.id}`
+                }}
                 register={register}
                 control={control}
             />)
         }
+
     </div>
 
 })

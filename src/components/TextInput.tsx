@@ -10,7 +10,6 @@ export const TextInput = memo((props: TextInputProps) => {
 
     const {
         ariaLabel,
-        name,
         register,
         required,
         maxLength,
@@ -20,14 +19,15 @@ export const TextInput = memo((props: TextInputProps) => {
         minLengthErrorMessage,
         pattern,
         patternErrorMessage,
-        control
+        control,
+        name,
+        id
     } = props;
 
 
     const { errors } = useFormState({ control });
 
     const { classes } = useStyles();
-
 
     return <div className={classes.root}>
         <h4>
@@ -39,7 +39,7 @@ export const TextInput = memo((props: TextInputProps) => {
             className={classes.input}
             type="text"
             aria-label={ariaLabel}
-            {...register(name, {
+            {...register(props.id, {
                 required,
                 maxLength,
                 minLength,
@@ -65,8 +65,22 @@ export const TextInput = memo((props: TextInputProps) => {
                     "errorMessage": patternErrorMessage ?? "Input does not match required pattern !"
                 }
             ].map(({ errorMessage, errorType }) => {
+                const error = (()=>{
+                    if(!id.includes(".")){
+                        return errors[id];
+                    }
+
+                    const [ a, b] = id.split(".");
+                    const err =  errors[a];
+
+                    if(err === undefined){
+                        return err;
+                    }
+                    return err[b];
+
+                })()
                 return (
-                    errors[name] && errors[name]?.type as any === errorType && <p className={classes.errorMsg} key={errorMessage}>{errorMessage}</p>
+                    error && error?.type as any === errorType && <p className={classes.errorMsg} key={errorMessage}>{errorMessage}</p>
                 )
             })
         }

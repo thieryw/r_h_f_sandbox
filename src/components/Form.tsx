@@ -27,15 +27,15 @@ export const Form = memo((props: FormProps) => {
             label !== undefined && <h2>{label}</h2>
         }
         {
-            inputs &&
-            inputs.map(input => <Input
-                input={input}
-                register={register}
-                key={input.name}
-                control={control}
-            />)
+               inputs &&
+               inputs.map(input => <Input
+                   input={input}
+                   register={register}
+                   key={input.name}
+                   control={control}
+               />)
+               
         }
-
 
         <input value={submitText ?? "submit"} type="submit" />
 

@@ -12,7 +12,7 @@ export type InputProps = {
 
 export const Input = memo((props: InputProps) => {
 
-    const { input, register, control } = props;
+    const { input, ...rest } = props;
 
     return (
         <>
@@ -21,21 +21,17 @@ export const Input = memo((props: InputProps) => {
                     switch (input.type) {
                         case "text": return <TextInput
                             {...input}
-                            register={register}
-                            key={input.name}
-                            control={control}
+                            {...rest}
 
                         />;
                         case "checkbox": return <Checkbox
                             {...input}
-                            register={register}
-                            control={control}
+                            {...rest}
                         />
                         default: return <input
                             aria-label={input.ariaLabel}
                             type={input.type}
-                            key={input.name}
-                            {...register(input.name)}
+                            {...rest.register(input.name)}
                         />
 
 

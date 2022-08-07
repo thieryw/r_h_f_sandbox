@@ -15,6 +15,7 @@ export function App() {
         inputs={[
             {
                 "name": "nom",
+                "id": "nom",
                 "type": "text",
                 "ariaLabel": "nom",
                 "required": true,
@@ -28,6 +29,7 @@ export function App() {
             },
             {
                 "type": "text",
+                "id": "prenom",
                 "name": "prenom",
                 "ariaLabel": "prenom",
             },
@@ -35,10 +37,12 @@ export function App() {
                 "type": "checkbox",
                 "ariaLabel": "avez vous plus de 18 ans ?",
                 "name": "avez vous plus de 18 ans ? ",
+                "id": "18+",
                 "dependentInputs": [
                     {
                         "type": "text",
                         "name": "travaille pratiqué",
+                        "id": "travaille",
                         "ariaLabel": "travaille pratiqué",
                         "required": true,
                         "minLength": 5,
@@ -47,6 +51,7 @@ export function App() {
                     },
                     {
                         "type": "text",
+                        "id": "animal",
                         "name": "animal préféré",
                         "ariaLabel": "animal préféré",
                     }
