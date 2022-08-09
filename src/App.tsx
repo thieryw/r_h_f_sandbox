@@ -35,43 +35,17 @@ export function App() {
             },
             {
                 "type": "checkbox",
-                "ariaLabel": "avez vous plus de 18 ans ?",
-                "name": "avez vous plus de 18 ans ? ",
-                "id": "18+",
+                "name": "avez vous une voiture ?",
+                "id": "hasCar",
                 "dependentInputs": [
                     {
-                        "type": "text",
-                        "name": "travaille pratiqué",
-                        "id": "travaille",
-                        "ariaLabel": "travaille pratiqué",
-                        "required": true,
-                        "minLength": 5,
-                        "minLengthErrorMessage": "champ trop court !",
-                        "requiredErrorMessage": "champ obligatoir"
-                    },
-                    {
-                        "type": "text",
-                        "id": "animal",
-                        "name": "animal préféré",
-                        "ariaLabel": "animal préféré",
-                    },
-                    {
-                        "type": "checkbox",
-                        "ariaLabel": "other checkbox",
-                        "name": "other checkbox",
-                        "id": "otherCheckbox",
-                        "dependentInputs": [
-                            {
-                                "type": "text",
-                                "name": "text2",
-                                "ariaLabel": "text2",
-                                "id": "pipi",
-                                "minLength": 3,
-                                "required": true
-                            }
-                        ]
+                        "type": "OptionList",
+                        "name": "Model",
+                        "id": "brand",
+                        "items": ["Mercedes", "B M W", "Bentley", "Porch"]
                     }
                 ]
+                    
             }
         ]}
     />

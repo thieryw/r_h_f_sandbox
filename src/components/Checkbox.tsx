@@ -16,7 +16,8 @@ export const Checkbox = memo((props: CheckboxProps) => {
         isChecked, 
         control,
         id,
-        unregister
+        unregister,
+        setValue
     } = props;
     const [
         areDependentInputsDisplayed, 
@@ -66,6 +67,7 @@ export const Checkbox = memo((props: CheckboxProps) => {
                 register={register}
                 unregister={unregister}
                 control={control}
+                setValue={setValue}
             />)
         }
 

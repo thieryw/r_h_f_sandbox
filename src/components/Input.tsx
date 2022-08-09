@@ -1,6 +1,7 @@
 import { memo } from "react";
 import { Checkbox } from "./Checkbox"
 import { TextInput } from "./TextInput";
+import { OptionList } from "./OptionList";
 import { Input as InputType } from "../tools/FormTypes";
 import type { Controls } from "../tools/FormTypes";
 
@@ -27,7 +28,13 @@ export const Input = memo((props: InputProps) => {
                         case "checkbox": return <Checkbox
                             {...input}
                             {...rest}
+                        />;
+
+                        case "OptionList": return <OptionList 
+                            {...input}
+                            {...rest}
                         />
+
                     }
                 })()
 

@@ -1,14 +1,19 @@
-import type { Control, FieldValues, UseFormRegister, UseFormUnregister } from "react-hook-form";
+import type { Control, FieldValues, UseFormRegister, UseFormSetValue, UseFormUnregister } from "react-hook-form";
+import { InputType } from "zlib";
+import { Input } from "../components/Input";
+import { OptionList } from "../components/OptionList";
 
 export type Controls = {
     register: UseFormRegister<FieldValues>;
     control: Control<FieldValues, any>;
     unregister: UseFormUnregister<FieldValues>;
+    setValue: UseFormSetValue<FieldValues>;
 };
 
-export type Input = Input.Text | Input.Checkbox;
+export type Input = Input.Text | Input.Checkbox | Input.OptionList;
 export type Text = Omit<Input.Text, "type"> & Controls;
-export type Checkbox = Omit<Input.Checkbox, "type" | "required"> & Controls;
+export type Checkbox = Omit<Input.Checkbox, "type"> & Controls;
+export type OptionList = Omit<Input.OptionList, "type"> & Controls;
 
 export type Form = {
     label?: string;
@@ -17,11 +22,10 @@ export type Form = {
 };
 declare namespace Input {
     export type Common = {
-        type: "text" | "checkbox";
+        type: "text" | "checkbox" | "OptionList";
         name: string;
         id: string;
-        ariaLabel: string;
-        required?: boolean;
+        ariaLabel?: string;
     };
 
     export type Text = Common & {
@@ -33,6 +37,7 @@ declare namespace Input {
         maxLengthErrorMessage?: string;
         minLengthErrorMessage?: string;
         requiredErrorMessage?: string;
+        required?: boolean;
     };
 
     export type Checkbox = Common & {
@@ -40,8 +45,13 @@ declare namespace Input {
         isChecked?: boolean;
         dependentInputs?: Input[];
     };
-};
 
+    export type OptionList = Common & {
+        type: "OptionList";
+        items: string[];
+        defaultSelectedItem?: OptionList["items"][number];
+    }
+};
 
 
 

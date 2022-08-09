@@ -4,7 +4,6 @@ import { makeStyles } from "../theme";
 import { useFormState } from "react-hook-form";
 import { Error } from "./Error";
 
-
 type TextInputProps = Text;
 
 export const TextInput = memo((props: TextInputProps) => {
@@ -39,6 +38,7 @@ export const TextInput = memo((props: TextInputProps) => {
             className={classes.input}
             type="text"
             aria-label={ariaLabel}
+            placeholder={name}
             {...register(props.id, {
                 required,
                 maxLength,

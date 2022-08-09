@@ -15,7 +15,7 @@ export const Form = memo((props: FormProps) => {
 
     const { label, inputs, submitText, onSubmit } = props;
 
-    const { register, handleSubmit, control, unregister } = useForm();
+    const { register, handleSubmit, control, unregister, setValue } = useForm();
 
     const { classes } = useStyles();
 
@@ -32,6 +32,7 @@ export const Form = memo((props: FormProps) => {
                    unregister={unregister}
                    key={input.name}
                    control={control}
+                   setValue={setValue}
                />)
                
         }
