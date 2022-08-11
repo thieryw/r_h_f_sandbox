@@ -12,12 +12,12 @@ export const Checkbox = memo((props: CheckboxProps) => {
         ariaLabel, 
         name, 
         register, 
-        dependentInputs, 
         isChecked, 
         control,
         id,
         unregister,
-        setValue
+        setValue,
+        dependentElements
     } = props;
     const [
         areDependentInputsDisplayed, 
@@ -25,7 +25,7 @@ export const Checkbox = memo((props: CheckboxProps) => {
     ] = useState(isChecked);
 
     const onClick = useConstCallback(() => {
-        if (dependentInputs === undefined) {
+        if (dependentElements === undefined) {
             return;
         }
         setAreDependentInputsDisplayed(!areDependentInputsDisplayed);
@@ -49,7 +49,7 @@ export const Checkbox = memo((props: CheckboxProps) => {
                 aria-label={ariaLabel}
                 checked={isChecked}
                 {...register(
-                    dependentInputs === undefined ||
+                    dependentElements === undefined ||
                         !areDependentInputsDisplayed ? id : `${id}.value`
                 )}
             />
@@ -57,18 +57,27 @@ export const Checkbox = memo((props: CheckboxProps) => {
         </div>
 
         {
-            dependentInputs !== undefined && areDependentInputsDisplayed &&
-            dependentInputs.map(input => <Input
-                key={input.name}
-                input={{
-                    ...input,
-                    "id": `${id}.${input.id}`
-                }}
-                register={register}
-                unregister={unregister}
-                control={control}
-                setValue={setValue}
-            />)
+            dependentElements !== undefined && areDependentInputsDisplayed &&
+            dependentElements.map(input => {
+                if(input.type === "reactNode"){
+                    return <div key={input.id}>
+                        {
+                            input.node
+                        }
+                    </div>
+                }
+                return <Input
+                    key={input.name}
+                    input={{
+                        ...input,
+                        "id": `${id}.${input.id}`
+                    }}
+                    register={register}
+                    unregister={unregister}
+                    control={control}
+                    setValue={setValue}
+                />
+            })
         }
 
     </div>

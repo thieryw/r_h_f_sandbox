@@ -1,19 +1,16 @@
 import { memo } from "react";
 import { useForm } from "react-hook-form";
-import type { FieldValues } from "react-hook-form";
 import type { Form as FormType } from "../tools/FormTypes";
 import { makeStyles } from "../theme";
 import { Input } from "./Input";
 
 
-type FormProps = FormType & {
-    onSubmit: (data: FieldValues) => void;
-}
+type FormProps = FormType
 
 
 export const Form = memo((props: FormProps) => {
 
-    const { label, inputs, submitText, onSubmit } = props;
+    const { label, elements, submitText, onSubmit } = props;
 
     const { register, handleSubmit, control, unregister, setValue } = useForm();
 
@@ -25,16 +22,25 @@ export const Form = memo((props: FormProps) => {
             label !== undefined && <h2>{label}</h2>
         }
         {
-               inputs &&
-               inputs.map(input => <Input
-                   input={input}
-                   register={register}
-                   unregister={unregister}
-                   key={input.name}
-                   control={control}
-                   setValue={setValue}
-               />)
-               
+            elements &&
+            elements.map(input => {
+                if(input.type === "reactNode"){
+                    return <div key={input.id}>
+                        {
+                            input.node
+                        }
+                    </div>
+                }
+                return <Input
+                    input={input}
+                    register={register}
+                    unregister={unregister}
+                    key={input.name}
+                    control={control}
+                    setValue={setValue}
+                />
+            })
+
         }
 
         <input value={submitText ?? "submit"} type="submit" />

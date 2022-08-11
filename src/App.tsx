@@ -12,32 +12,30 @@ export function App() {
         onSubmit={onSubmit}
         label="Form"
         submitText="submit"
-        inputs={[
+        elements={[
             {
                 "name": "nom",
                 "id": "nom",
                 "type": "text",
                 "ariaLabel": "nom",
                 "required": true,
-                "maxLength": 10,
-                "minLength": 5,
                 "requiredErrorMessage": "champ obligatoire !",
-                "maxLengthErrorMessage": "champ trop long !",
-                "minLengthErrorMessage": "Champ trop court !",
-                "patternErrorMessage": "Camp doit contenire au moin une majuscule",
-                "pattern": /[A-Z]/
+                "autoComplete": "given-name"
             },
             {
                 "type": "text",
                 "id": "prenom",
                 "name": "prenom",
                 "ariaLabel": "prenom",
+                "required": true,
+                "requiredErrorMessage": "champ obligatoire !",
+                "autoComplete": "family-name"
             },
             {
                 "type": "checkbox",
                 "name": "avez vous une voiture ?",
                 "id": "hasCar",
-                "dependentInputs": [
+                "dependentElements": [
                     {
                         "type": "OptionList",
                         "name": "Model",
@@ -46,6 +44,11 @@ export function App() {
                     }
                 ]
                     
+            },
+            {
+                "type": "reactNode",
+                "node": <div>This is a react node</div>,
+                "id": "react node"
             }
         ]}
     />

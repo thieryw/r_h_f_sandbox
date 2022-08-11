@@ -2,7 +2,7 @@ import { memo } from "react";
 import { Checkbox } from "./Checkbox"
 import { TextInput } from "./TextInput";
 import { OptionList } from "./OptionList";
-import { Input as InputType } from "../tools/FormTypes";
+import { FormElement as InputType } from "../tools/FormTypes";
 import type { Controls } from "../tools/FormTypes";
 
 

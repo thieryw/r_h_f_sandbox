@@ -1,7 +1,7 @@
 import type { Control, FieldValues, UseFormRegister, UseFormSetValue, UseFormUnregister } from "react-hook-form";
-import { InputType } from "zlib";
-import { Input } from "../components/Input";
+import { Input as FormElement } from "../components/Input";
 import { OptionList } from "../components/OptionList";
+import type { ReactNode } from "react";
 
 export type Controls = {
     register: UseFormRegister<FieldValues>;
@@ -10,19 +10,25 @@ export type Controls = {
     setValue: UseFormSetValue<FieldValues>;
 };
 
-export type Input = Input.Text | Input.Checkbox | Input.OptionList;
-export type Text = Omit<Input.Text, "type"> & Controls;
-export type Checkbox = Omit<Input.Checkbox, "type"> & Controls;
-export type OptionList = Omit<Input.OptionList, "type"> & Controls;
+export type FormElement = 
+    FormElement.Text | 
+    FormElement.Checkbox | 
+    FormElement.OptionList |
+    FormElement.Node;
+
+export type Text = Omit<FormElement.Text, "type"> & Controls;
+export type Checkbox = Omit<FormElement.Checkbox, "type"> & Controls;
+export type OptionList = Omit<FormElement.OptionList, "type"> & Controls;
 
 export type Form = {
     label?: string;
-    inputs?: Input[];
+    elements?: FormElement[];
     submitText?: string;
+    onSubmit: (data: FieldValues) => void;
 };
-declare namespace Input {
+declare namespace FormElement {
     export type Common = {
-        type: "text" | "checkbox" | "OptionList";
+        type: "text" | "checkbox" | "OptionList" | "reactNode";
         name: string;
         id: string;
         ariaLabel?: string;
@@ -38,18 +44,25 @@ declare namespace Input {
         minLengthErrorMessage?: string;
         requiredErrorMessage?: string;
         required?: boolean;
+        autoComplete?: string;
     };
 
     export type Checkbox = Common & {
         type: "checkbox";
         isChecked?: boolean;
-        dependentInputs?: Input[];
+        dependentElements?: FormElement[];
     };
 
     export type OptionList = Common & {
         type: "OptionList";
         items: string[];
         defaultSelectedItem?: OptionList["items"][number];
+    };
+
+    export type Node = {
+        type: "reactNode",
+        node: ReactNode,
+        id: string;
     }
 };
 

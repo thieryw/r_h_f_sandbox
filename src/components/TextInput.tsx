@@ -21,7 +21,8 @@ export const TextInput = memo((props: TextInputProps) => {
         patternErrorMessage,
         control,
         name,
-        id
+        id,
+        autoComplete
     } = props;
 
 
@@ -39,11 +40,12 @@ export const TextInput = memo((props: TextInputProps) => {
             type="text"
             aria-label={ariaLabel}
             placeholder={name}
+            autoComplete={autoComplete}
             {...register(props.id, {
                 required,
                 maxLength,
                 minLength,
-                pattern
+                pattern,
             })}
         />
 
